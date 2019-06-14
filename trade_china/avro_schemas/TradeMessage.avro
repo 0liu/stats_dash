@@ -1,0 +1,16 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "TradeMessage",
+ "fields": [
+     {"name": "tradeID", "type": "string"},
+     {"name": "qty", "type": "long"},
+     {"name": "price", "type": "double"},
+     {"name": "orderID", "type": "long"},
+     {"name": "createDate", "type": "string"},
+     {"name": "tradingDay", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "symbol", "type": "string"},
+     {"name": "exchangeOrderID", "type": "string"},
+     {"name": "hedgeFlag", "type": {"type": "enum", "name": "TradeHedgeFlag", "symbols": ["trade_hedge_speculation", "trade_hedge_arbitrage", "trade_hedge_hedge", "trade_hedge_market_maker"]}}   
+ ]
+}

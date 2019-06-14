@@ -1,0 +1,7 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "QuerySubscribeMarketDataMessage",
+ "fields": [
+     {"name": "createDate",  "type": "string"}
+ ]
+}

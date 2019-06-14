@@ -1,0 +1,16 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "CancelOrderMessage",
+ "fields": [
+     {"name": "orderID", "type": "long"},
+     {"name": "exchangeOrderID", "type": "string"},
+     {"name": "brokerId", "type": "string"},
+     {"name": "accountId", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "accountPassword", "type": "string"},
+     {"name": "exchangeID", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "qty",  "type": "int"},
+     {"name": "createDate",  "type": "string"}
+ ]
+}

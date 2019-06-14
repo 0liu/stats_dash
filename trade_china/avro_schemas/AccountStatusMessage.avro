@@ -1,0 +1,11 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "AccountStatusMessage",
+ "fields": [
+     {"name": "accountId", "type": "long"},
+     {"name": "status", "type": {"type": "enum", "name": "AccountStatus", "symbols": ["account_status_ok", "account_status_failure"]}},
+     {"name": "statusMessage", "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "connectionStatus", "type": {"type": "enum", "name": "ConnectionStatus", "symbols": ["connection_status_ok", "connection_status_failure"]}}
+ ]
+}

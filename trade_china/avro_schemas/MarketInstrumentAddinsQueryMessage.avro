@@ -1,0 +1,10 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "MarketInstrumentAddinsQueryMessage",
+ "fields": [
+     {"name": "brokerID", "type": "string"},
+     {"name": "accountId", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "accountPassword", "type": "string"}
+ ]
+}

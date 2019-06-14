@@ -1,0 +1,21 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "InstrumentDetailsMessage",
+ "fields": [
+     {"name": "brokerID", "type": "string"},
+     {"name": "instrumentList", "type":
+       {"type": "array", "items":
+       {"type": "record",
+        "name": "InstrumentDetails",
+        "fields": [
+          {"name": "exchangeID", "type": "string"},
+     	  {"name": "instrumentName", "type": "string"},  
+          {"name": "unitSize", "type": "int"},
+          {"name": "priceTick",  "type": "double"},
+          {"name": "symbol",  "type": "string"},
+          {"name": "openDate",  "type": "string"},
+          {"name": "expireDate",  "type": "string"}
+        ]}}
+     }
+ ]
+}

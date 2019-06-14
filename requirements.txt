@@ -1,0 +1,14 @@
+numpy
+scipy
+pandas
+statsmodels
+ipython
+matplotlib
+seaborn
+pytz
+pymysql
+sqlalchemy
+xlwings
+coloredlogs
+pika==0.13
+avro-python3>=1.8.2

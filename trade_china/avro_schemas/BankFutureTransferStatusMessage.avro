@@ -1,0 +1,20 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "BankFutureTransferStatusMessage",
+ "fields": [
+     {"name": "transferId", "type": "long"},
+     {"name": "brokerId", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "tradeCode", "type": "string"},
+     {"name": "bankID", "type": "string"},
+     {"name": "bankBranchID", "type": "string"},
+     {"name": "bankPassword", "type": "string"},
+     {"name": "secuPwdFlag", "type": "string"},
+     {"name": "currencyID", "type": "string"},
+     {"name": "tradeAmount", "type": "double"},
+     {"name": "errorMsg", "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "errorID", "type": "long"}
+ ]
+}

@@ -1,0 +1,30 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "TransferSerialMessage",
+ "fields": [
+     {"name": "accountID",  "type": "long"},
+     {"name": "brokerId",  "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "TransferSerials",  "type": 
+       {"type": "array", "items":
+         {"type": "record",
+          "name": "TransferSerial",
+          "fields": [
+            {"name": "plateSerial", "type": "int"}, 
+            {"name": "bankSerial", "type": "string"},
+            {"name": "futureSerial", "type": "int"}, 
+            {"name": "errorID", "type": "long"}, 
+            {"name": "tradeTime", "type": "string"}, 
+            {"name": "bankId", "type": "string"}, 
+            {"name": "bankBranchID", "type": "string"},
+            {"name": "bankAccount", "type": "string"},
+            {"name": "tradeCode", "type": "string"},
+            {"name": "tradeAmount", "type": "double"},
+            {"name": "currencyID", "type": "string"},
+            {"name": "availabilityFlag", "type": "string"}          
+          ]
+         }
+       }
+    }
+ ]
+}

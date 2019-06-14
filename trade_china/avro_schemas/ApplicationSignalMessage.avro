@@ -1,0 +1,17 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "ApplicationSignalMessage",
+ 
+ "fields": [
+     {"name": "signalID",  "type": "long"},
+     {"name": "title",  "type": "string"},
+     {"name": "signalType", "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "portfolioID",  "type": "long"},
+     {"name": "expirationDate",  "type": "string"},
+     {"name": "applicationID",  "type": "long"},
+     {"name": "priority",  "type": "int"},
+     {"name": "read",  "type": "boolean"},
+     {"name": "value",  "type": "string"}
+ ]
+}

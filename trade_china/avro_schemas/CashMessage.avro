@@ -1,0 +1,21 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "CashMessage",
+ "fields": [
+     {"name": "accountID",  "type": "long"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "qty",  "type": "double"},
+     {"name": "value",  "type": "double"},
+     {"name": "preBalance",  "type": "double"},
+     {"name": "deposit",  "type": "double"},
+     {"name": "withdraw",  "type": "double"},
+     {"name": "frozenMargin",  "type": "double"},
+     {"name": "frozenCash",  "type": "double"},
+     {"name": "frozenCommission",  "type": "double"},
+     {"name": "currMargin",  "type": "double"},
+     {"name": "commission",  "type": "double"},
+     {"name": "closeProfit",  "type": "double"},
+     {"name": "positionProfit",  "type": "double"},
+     {"name": "tradingDay",  "type": "string"}	
+ ]
+}

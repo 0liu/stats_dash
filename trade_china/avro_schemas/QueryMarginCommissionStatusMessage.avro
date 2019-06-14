@@ -1,0 +1,21 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "QueryMarginCommissionStatusMessage",
+ "fields": [
+     {"name": "brokerId", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "longMarginRatioByMoney", "type": "double"},
+     {"name": "longMarginRatioByVolume", "type": "double"},
+     {"name": "shortMarginRatioByMoney", "type": "double"},
+     {"name": "shortMarginRatioByVolume", "type": "double"},
+     {"name": "openRatioByMoney", "type": "double"},
+     {"name": "openRatioByVolume", "type": "double"},
+     {"name": "closeRatioByMoney", "type": "double"},
+     {"name": "closeRatioByVolume", "type": "double"},
+     {"name": "closeTodayRatioByMoney", "type": "double"},
+     {"name": "closeTodayRatioByVolume", "type": "double"},
+     {"name": "status", "type": {"type": "enum", "name": "AppMarginCommissionQueryStatus", "symbols": ["app_margin_commission_query_status_ok", "app_margin_commission_query_status_failure"]}}
+ ]
+}

@@ -1,0 +1,24 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "OrderMessage",
+ "fields": [
+     {"name": "orderID", "type": "long"},
+     {"name": "brokerID", "type": "string"},
+     {"name": "accountId", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "accountPassword", "type": "string"},
+     {"name": "exchangeID", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "direction", "type": {"type": "enum", "name": "OrderDirection", "symbols": ["order_direction_long", "order_direction_short"]}},
+     {"name": "flags", "type": {"type": "array", "items": {"type": "enum", "name": "OrderFlag", "symbols": ["order_flag_close_today"]}}},
+     {"name": "price",  "type": "double"},
+     {"name": "qty",  "type": "int"},
+     {"name": "expirationDate",  "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "secType",  "type": "string"},
+     {"name": "multiplier",  "type": "string"},
+     {"name": "currency",  "type": "string"},
+     {"name": "orderType",  "type": "string"},
+     {"name": "tif",  "type": "string"}
+ ]
+}

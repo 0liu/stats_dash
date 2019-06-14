@@ -1,0 +1,17 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "TransactionMessage",
+ "fields": [
+     {"name": "transactionID",  "type": "long"},
+     {"name": "createDate", "type": "string"},
+     {"name": "qty", "type": "double"},
+     {"name": "price", "type": "double"},
+     {"name": "direction", "type": {"type": "enum", "name": "TransactionDirection", "symbols": ["transaction_direction_long", "transaction_direction_short"]}},
+     {"name": "portfolioID",  "type": "long"},
+     {"name": "accountID",  "type": "long"},
+     {"name": "instrumentID",  "type": "long"},
+     {"name": "value",  "type": "double"},
+     {"name": "exchangeTransactionID", "type": "string"},
+     {"name": "orderID",  "type": "long"}
+ ]
+}

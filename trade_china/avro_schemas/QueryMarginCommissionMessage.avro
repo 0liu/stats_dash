@@ -1,0 +1,11 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "QueryMarginCommissionMessage",
+ "fields": [
+     {"name": "brokerId", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "accountPassword", "type": "string"},
+     {"name": "symbol", "type": "string"}
+ ]
+}

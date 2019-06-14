@@ -1,0 +1,40 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "OrderStatusMessage",
+ "fields": [
+     {"name": "orderID", "type": "long"},
+     {"name": "exchangeOrderID", "type": "string"},
+     {"name": "qty", "type": "int"},
+     {"name": "status", "type": {"type": "enum", "name": "OrderStatus", "symbols": ["order_status_new", "order_status_cancel_submitted", "order_status_executed", "order_status_rejected", "order_status_cancelled", "order_status_submitted", "order_status_part_executed", "order_status_no_cancel", "order_status_repeat_cancel", "order_status_undefined"]}},
+     {"name": "statusMessage", "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "insertTime", "type": "string"},
+     {"name": "external", "type": "boolean"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "direction", "type": {"type": "enum", "name": "OrderStatusDirection", "symbols": ["order_status_direction_long", "order_status_direction_short"]}},
+     {"name": "price", "type": "double"},
+     {"name": "submittedQty", "type": "int"},
+     {"name": "closeToday", "type": "boolean"},
+     {"name": "exchangeID", "type": "string"},
+     {"name": "accountID",  "type": "long"}, 
+     {"name": "isCached", "type": "boolean"},
+     {"name": "position",  "type":
+       {"type": "array", "items":
+       {"type": "record",
+        "name": "OrderStatusPosition",
+        "fields": [
+          {"name": "designator", "type": {"type": "enum", "name": "OrderPositionDesignator", "symbols": ["order_cash_position", "order_future_position", "order_stock_position"]}},
+          {"name": "symbol", "type": "string"},
+          {"name": "openPrice", "type": "double"},
+          {"name": "openDate", "type": "string"},
+          {"name": "tradingDay", "type": "string"},
+          {"name": "tradeID", "type": "string"},
+          {"name": "lastSettlementPrice", "type": "double"},
+          {"name": "avgPrice", "type": "double"},
+          {"name": "qty", "type": "double"},
+          {"name": "direction", "type": {"type": "enum", "name": "OrderPositionDirection", "symbols": ["order_position_direction_long", "order_position_direction_short"]}}
+        ]}}
+     }
+ ]
+}

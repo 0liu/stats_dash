@@ -1,0 +1,22 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "ValidClosePositionMessage",
+ "fields": [
+     {"name": "accountID",  "type": "long"},
+     {"name": "accountAuthID",  "type": "string"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "positionList",  "type": 
+       {"type": "array", "items":
+       {"type": "record",
+        "name": "ValidPosition",
+        "fields": [
+          {"name": "symbol", "type": "string"},
+          {"name": "volume", "type": "long"},
+          {"name": "todayVolume", "type": "long"},
+          {"name": "yesterdayVolume", "type": "long"},
+	  {"name": "isSHFE", "type": "boolean"},
+          {"name": "direction", "type": {"type": "enum", "name": "ClosePositionDirection", "symbols": ["direction_long", "direction_short"]}}
+        ]}}
+     }
+ ]
+}

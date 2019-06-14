@@ -1,0 +1,25 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "PositionMessage",
+ "fields": [
+     {"name": "accountID",  "type": "long"},
+     {"name": "createDate",  "type": "string"},
+     {"name": "position",  "type": 
+       {"type": "array", "items":
+       {"type": "record",
+        "name": "PositionMessagePosition",
+        "fields": [
+          {"name": "designator", "type": {"type": "enum", "name": "PositionDesignator", "symbols": ["cash_position", "future_position", "stock_position"]}},
+          {"name": "symbol", "type": "string"},
+          {"name": "openPrice", "type": "double"},
+          {"name": "openDate", "type": "string"},
+          {"name": "tradingDay", "type": "string"},
+          {"name": "tradeID", "type": "string"},
+          {"name": "lastSettlementPrice", "type": "double"}, 
+          {"name": "avgPrice", "type": "double"},
+          {"name": "qty", "type": "double"},
+          {"name": "direction", "type": {"type": "enum", "name": "PositionDirection", "symbols": ["position_direction_long", "position_direction_short"]}}
+        ]}}
+     }
+ ]
+}

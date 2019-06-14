@@ -1,0 +1,19 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "QueryOrderStatusMessage",
+ "fields": [
+     {"name": "orderID", "type": "long"},
+     {"name": "brokerID", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "accountAuthID", "type": "string"},
+     {"name": "accountPassword", "type": "string"},
+     {"name": "exchangeID", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "direction", "type": {"type": "enum", "name": "OrderDirection1", "symbols": ["order_direction1_long", "order_direction1_short"]}},
+     {"name": "flags", "type": {"type": "array", "items": "string"}},
+     {"name": "price",  "type": "double"},
+     {"name": "qty",  "type": "int"},
+     {"name": "expirationDate",  "type": "string"},
+     {"name": "createDate",  "type": "string"}
+ ]
+}

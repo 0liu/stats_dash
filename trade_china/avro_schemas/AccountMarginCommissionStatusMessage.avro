@@ -1,0 +1,19 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "AccountMarginCommissionStatusMessage",
+ "fields": [
+     {"name": "brokerId", "type": "string"},
+     {"name": "accountID", "type": "long"},
+     {"name": "accountAuthId", "type": "string"},
+     {"name": "symbol", "type": "string"},
+     {"name": "marginRatioType", "type": {"type": "enum", "name": "MarginType", "symbols": ["margin_by_volume", "margin_by_money"]}},
+     {"name": "commissionRatioType", "type": {"type": "enum", "name": "CommissionType", "symbols": ["commission_by_volume", "commission_by_money"]}},
+     {"name": "longMarginRatio", "type": "double"},
+     {"name": "shortMarginRatio", "type": "double"},
+     {"name": "openRatio", "type": "double"},
+     {"name": "closeRatio", "type": "double"},
+     {"name": "closeTodayRatio", "type": "double"},
+     {"name": "maxLimitOrderVolume", "type": "long"},
+     {"name": "minLimitOrderVolume", "type": "long"}
+ ]
+}

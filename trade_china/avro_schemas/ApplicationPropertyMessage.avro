@@ -1,0 +1,15 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "ApplicationPropertyMessage",
+ "fields": [
+     {"name": "key", "type": "string"},
+     {"name": "value", "type": "bytes"},
+     {"name": "contentType",  "type": "string"},
+     {"name": "readonly",  "type": "boolean"},
+     {"name": "applicationID",  "type": "long"},
+     {"name": "userID",  "type": "long"},
+     {"name": "portfolioID",  "type": "long"},
+     {"name": "applicationGroupID", "type": "long"},
+     {"name": "date", "type": "string"}
+ ]
+}

@@ -1,0 +1,10 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "RunningStatusMessage",
+ "fields": [
+     {"name": "accountAuthID", "type": "string"},
+     {"name": "role", "type": "string"},
+     {"name": "queueSize", "type": "long"},
+     {"name": "despMsg", "type": "string"}
+ ]
+}

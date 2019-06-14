@@ -1,0 +1,9 @@
+{"namespace": "com.aqitrade.raduga.messagebus.messages",
+ "type": "record",
+ "name": "UnsubscribeMarketDataMessage",
+ "fields": [
+     {"name": "exchangeID",  "type": "string"},
+     {"name": "symbolList", "type": { "type": "array", "items": "string"}},
+     {"name": "createDate",  "type": "string"}
+ ]
+}
