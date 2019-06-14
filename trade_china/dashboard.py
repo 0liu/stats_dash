@@ -113,12 +113,12 @@ class Dashboard:
                 continue
         while True:
             try:
-                print("\nPlease input Excel file and spreadsheet names (Return='DailyUpdate.xlsx  Pair', q=Quit):")
+                print("\nPlease input Excel file and spreadsheet names (Return='dashboard_pairs.xlsx  Pair', q=Quit):")
                 excel_input = input().strip()
                 if excel_input.lower() == 'q':
                     self.shutdown()
                 elif excel_input == '':
-                    self.excel_file, self.sheet_name = 'DailyUpdate.xlsx', 'Pair'
+                    self.excel_file, self.sheet_name = 'dashboard_pairs.xlsx', 'Pair'
                 else:
                     self.excel_file, self.sheet_name = excel_input.split()
                 if self.excel_file.split('.')[-1] != 'xlsx':
