@@ -649,7 +649,7 @@ class MarketAnalyzer:
         if symbol not in self._watch_symbols:
             return
 
-        bid, ask = tick_msg[BID_PRICE], tick_msg[ASK_PRICE]
+        bid, ask, high, low = tick_msg[BID_PRICE], tick_msg[ASK_PRICE], tick_msg[HIGH_PRICE], tick_msg[LOW_PRICE]
         try:
             decimal_number = self._price_decimal_lookup[symbol]
         except KeyError:
@@ -657,11 +657,8 @@ class MarketAnalyzer:
             self._price_decimal_lookup[symbol] = decimal_number
         mid = round((bid + ask) / 2.0, decimal_number)
         self.study_df.at[symbol, MID_PRICE] = mid
-        high, low = self.study_df.at[symbol, MID_PRICE_DAY_HIGH], self.study_df.at[symbol, MID_PRICE_DAY_LOW]
-        if high is None or np.isnan(high) or mid > high:
-            self.study_df.at[symbol, MID_PRICE_DAY_HIGH] = mid
-        if low is None or np.isnan(low) or mid < low:
-            self.study_df.at[symbol, MID_PRICE_DAY_LOW] = mid
+        self.study_df.at[symbol, MID_PRICE_DAY_HIGH] = high
+        self.study_df.at[symbol, MID_PRICE_DAY_LOW] = low
         open_interest_change = tick_msg[OPEN_INTEREST] - self.study_df.at[symbol, PREV_OPEN_INTEREST]
         self.study_df.at[symbol, OPEN_INTEREST_TICK_CHANGE] = open_interest_change
 
