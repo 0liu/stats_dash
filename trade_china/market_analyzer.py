@@ -376,7 +376,7 @@ class MarketAnalyzer:
                 continue
             self._update_one_pair_stats(pair_name, symbol_dfs_m)
 
-    def _update_one_single_stats(self, symbol, symbol_dfs_m):
+    def _update_one_single_stats(self, symbol, symbol_dfs_m, symbol_dfs_d):
         """
         Compute statistics of a single contract and update study_df.
         """
@@ -388,7 +388,6 @@ class MarketAnalyzer:
         symbol_high_m = symbol_dfs_m[symbol][HIGH_PRICE]
         symbol_low_m = symbol_dfs_m[symbol][LOW_PRICE]
         symbol_mid_m = symbol_dfs_m[symbol][[BID_PRICE, ASK_PRICE]].mean(axis=1)
-        symbol_volume_m = symbol_dfs_m[symbol][VOLUME]
 
         # Compute 1m close value
         symbol_val_m = symbol_mid_m * symbol_delta
@@ -435,7 +434,6 @@ class MarketAnalyzer:
         symbol_prev_close = symbol_close_d[-1]
         symbol_margin = max_margin_ratio * symbol_delta * symbol_prev_close
         symbol_prev_val = symbol_val_m[-1]
-        symbol_prev_volume = symbol_volume_m[-1]
         symbol_prev_open_interest = self._specs_df.at[self._symbol_to_id[symbol], OPEN_INTEREST]
         symbol_prev_open_interest_capital = symbol_prev_open_interest * symbol_prev_close * symbol_delta * max_margin_ratio
 
@@ -444,6 +442,9 @@ class MarketAnalyzer:
 
         # (H-L) / ATR
         symbol_hl_atr_ratio = [round((h-l)/p_atr, 1) for h, l, p_atr in zip(symbol_high, symbol_low, symbol_atr)]
+
+        # Get last day volume from daily data
+        symbol_prev_volume = symbol_dfs_d[symbol][VOLUME][-1]
 
         # Update stats to study_df
         for k, v in {
@@ -476,13 +477,15 @@ class MarketAnalyzer:
         symbol_dfs_m = self._dataport.split_data_per_symbol(df_m, self._id_to_symbol)
         for df_m in symbol_dfs_m.values():
             MarketAnalyzer.shift_datatime_index_for_night_open(df_m)
-
+        df_d = self._dataport.query_hist_data(
+            self._dataport.DB_HIST_1D, symbol_ids=self._watch_ids, start=trading_dates[-5])
+        symbol_dfs_d = self._dataport.split_data_per_symbol(df_d, self._id_to_symbol)
         # Compute stats for each symbol and update to study_df
         self._logger.info("market_analyzer.update_single_stats: Computing ...")
         for symbol in self.ctrl_df.index:
             if symbol is None:
                 continue
-            self._update_one_single_stats(symbol, symbol_dfs_m)
+            self._update_one_single_stats(symbol, symbol_dfs_m, symbol_dfs_d)
 
     def _update_one_pair_indicators(self, pair_name):
         """

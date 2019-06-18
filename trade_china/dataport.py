@@ -25,7 +25,7 @@ class DataPort:
 
     def __init__(self, db_login: dict, db_dict: dict, db_ticktime_format: dict, logger=None):
         """
-        :db_login: 'Host', 'Port', 'User', 'Password', 'Database'.
+        :db_login: 'host', 'port', 'user', 'password', 'database'.
         :db_dict: table and field names mapping.
         :db_ticktime_format: strptime()/strftime() format for historical and tick data.
         """
@@ -66,7 +66,7 @@ class DataPort:
     def query_table_column_names(self, conn, table: str) -> list:
         cols_query = text(
             """SELECT `COLUMN_NAME` FROM `INFORMATION_SCHEMA`.`COLUMNS`
-               WHERE `TABLE_SCHEMA`='{}' AND `TABLE_NAME`=:table """.format(self._db_login['Database']))
+               WHERE `TABLE_SCHEMA`='{}' AND `TABLE_NAME`=:table """.format(self._db_login['database']))
         query_result = conn.execute(cols_query, table=table)
         db_cols = [x[0] for x in query_result]
         cols = [self._db_dict[c] if c in self._db_dict else c for c in db_cols]
@@ -258,6 +258,6 @@ if __name__ == '__main__':
     specs,symbol2id, _,_,_,_ = dp.query_specs(('rb1910','i1910','m1909','rm909'))
 
     with dp._mysql_engine.connect() as conn:
-        t_dates = dp.query_trading_dates(conn, 50)  
-
+        t_dates = dp.query_trading_dates(conn, 50)
+  
     df = dp.query_hist_data('instrument_history_d', specs.index.to_list(), t_dates[9], t_dates[15])
