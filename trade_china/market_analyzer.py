@@ -636,16 +636,11 @@ class MarketAnalyzer:
             self.study_df.at[p_name, PAIR_VAL] = pair_value
 
             # update pair value day high/low
-            try:
-                if pair_value > p_study[PAIR_VAL_DAY_HIGH]:
-                    self.study_df.at[p_name, PAIR_VAL_DAY_HIGH] = pair_value
-            except TypeError:  # PAIR_VAL_DAY_HIGH is None, NaN
-                self.study_df.at[p_name, PAIR_VAL_DAY_HIGH] = pair_value                
-            try:
-                if pair_value < p_study[PAIR_VAL_DAY_LOW]:
-                    self.study_df.at[p_name, PAIR_VAL_DAY_LOW] = pair_value
-            except TypeError:  # PAIR_VAL_DAY_LOW is None, NaN
-                self.study_df.at[p_name, PAIR_VAL_DAY_LOW] = pair_value                
+            p_val_high, p_val_low = p_study[PAIR_VAL_DAY_HIGH], p_study[PAIR_VAL_DAY_LOW]
+            if (p_val_high is None) or np.isnan(p_val_high) or pair_value > p_study[PAIR_VAL_DAY_HIGH]:
+                self.study_df.at[p_name, PAIR_VAL_DAY_HIGH] = pair_value
+            if (p_val_low is None) or np.isnan(p_val_low) or pair_value < p_study[PAIR_VAL_DAY_LOW]:
+                self.study_df.at[p_name, PAIR_VAL_DAY_LOW] = pair_value
 
     def _update_single_study_on_tick(self, tick_msg):
         symbol = tick_msg[SYMBOL].upper()
