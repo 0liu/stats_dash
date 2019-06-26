@@ -7,8 +7,9 @@ import pytz
 
 coloredlogs.DEFAULT_FIELD_STYLES['levelname']['color'] = 'blue'
 
-SHANGHAI = pytz.timezone('Asia/Shanghai')
 UTC = pytz.UTC
+SHANGHAI = pytz.timezone('Asia/Shanghai')
+GMT12 = pytz.timezone('Asia/Kamchatka')
 CONFIG_PATH = os.path.realpath(os.path.expanduser('~/.trade_china'))
 CONFIG_FILE = 'trade_china.ini'
 if not os.path.exists(CONFIG_PATH):
@@ -61,10 +62,10 @@ def get_config(logger=None, reset=False):
             config.write(f)
     return config
 
-def get_number_of_decimal(price_tick):
-    str_price_tick_ = str(price_tick)
-    decimal_pos_ = str_price_tick_.find('.')
-    if decimal_pos_ == -1 or str_price_tick_[decimal_pos_ + 1:] == '0':
+def get_number_of_decimal(tick_size):
+    tick_size_str = str(tick_size)
+    decimal_pos = tick_size_str.find('.')
+    if decimal_pos == -1 or tick_size_str[decimal_pos + 1:] == '0':
         return 0
     else:
-        return len(str_price_tick_) - (decimal_pos_ + 1)
+        return len(tick_size_str) - (decimal_pos + 1)

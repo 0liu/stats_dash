@@ -126,6 +126,7 @@ class MarketAnalyzer:
         self._id_to_ticker = {}
         self._id_to_symbol = {}
         self._watch_ids = {}
+        self._watch_tickers = {}
         self._margin_comm_ratio_df = None
 
         # Status and controls
@@ -146,6 +147,8 @@ class MarketAnalyzer:
         (self._specs_df, self._symbol_to_id, self._ticker_to_symbol, self._ticker_to_id, self._id_to_ticker,
         self._id_to_symbol) = self._dataport.query_specs(self._watch_symbols)
         self._watch_ids = {self._symbol_to_id[symbol] for symbol in self._watch_symbols}
+        self._watch_tickers = {
+            self._id_to_ticker[ins_id] for ins_id in [self._symbol_to_id[s] for s in self._watch_symbols]}
         for i in range(1, self.max_leg+1):
             symbol_col = [SYMBOL, LEG_i_SYMBOL.format(i=i)][int(self.max_leg>1)]
             ticker_delta_col = [TICKER_DELTA, LEG_i_TICKER_DELTA.format(i=i)][int(self.max_leg>1)]
