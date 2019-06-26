@@ -51,7 +51,7 @@ class MarketAnalyzer:
 
     SINGLE_STUDIES = [
         # stats
-        MARGIN_VAL,
+        MARGIN_RATIO_MAX,
         PREV_CLOSE,
         SYMBOL_PREV_VAL,
         PREV_VOLUME,
@@ -435,7 +435,6 @@ class MarketAnalyzer:
         
         # Find close price, value, volume, open interest of last day
         symbol_prev_close = symbol_close_d[-1]
-        symbol_margin = max_margin_ratio * symbol_delta * symbol_prev_close
         symbol_prev_val = symbol_val_m[-1]
         symbol_prev_open_interest = self._specs_df.at[self._symbol_to_id[symbol], OPEN_INTEREST]
         symbol_prev_open_interest_capital = symbol_prev_open_interest * symbol_prev_close * symbol_delta * max_margin_ratio
@@ -451,7 +450,7 @@ class MarketAnalyzer:
 
         # Update stats to study_df
         for k, v in {
-            MARGIN_VAL: symbol_margin,
+            MARGIN_RATIO_MAX: max_margin_ratio,
             PREV_CLOSE: symbol_prev_close,
             SYMBOL_PREV_VAL: symbol_prev_val,
             PREV_VOLUME: symbol_prev_volume,
@@ -657,11 +656,17 @@ class MarketAnalyzer:
             decimal_number = get_number_of_decimal(tick_msg[TICK_SIZE])
             self._price_decimal_lookup[symbol] = decimal_number
         mid = round((bid + ask) / 2.0, decimal_number)
-        self.study_df.at[symbol, MID_PRICE] = mid
-        self.study_df.at[symbol, MID_PRICE_DAY_HIGH] = high
-        self.study_df.at[symbol, MID_PRICE_DAY_LOW] = low
-        open_interest_change = tick_msg[OPEN_INTEREST] - self.study_df.at[symbol, PREV_OPEN_INTEREST]
-        self.study_df.at[symbol, OPEN_INTEREST_TICK_CHANGE] = open_interest_change
+        high20, low20 = self.study_df.loc[
+            symbol, [SYMBOL_PRICE_HIGH_m_DAY.format(m=20), SYMBOL_PRICE_LOW_m_DAY.format(m=20)]]
+        mid_change_ratio_hl20 = (mid - low20) / (high20 - low20)
+        prev_open_interest = self.study_df.loc[symbol, PREV_OPEN_INTEREST]
+        open_interest_change = tick_msg[OPEN_INTEREST] - prev_open_interest
+        open_interest_change_ratio = open_interest_change / prev_open_interest
+        self.study_df.loc[
+            symbol, [
+                MID_PRICE, MID_PRICE_CHANGE_PERCENT_HL20, MID_PRICE_DAY_HIGH, MID_PRICE_DAY_LOW,
+                OPEN_INTEREST_TICK_CHANGE, OPEN_INTEREST_TICK_CHANGE_PERCENT]] = [
+                    mid, mid_change_ratio_hl20, high, low, open_interest_change, open_interest_change_ratio]
 
     def _update_study_on_tick_engine(self):
         update_func = [self._update_single_study_on_tick, self._update_pair_study_on_tick][self.max_leg>1]
