@@ -217,10 +217,14 @@ class DataPort:
         data_df = data_df.set_index(TICK_TIME, drop=True)   
         for invalid_date in INVALID_DATES:
             try:
-                drop_index = data_df.loc[invalid_date].index
+                drop_df = data_df.loc[invalid_date]
             except KeyError:
                 continue
-            if not drop_index.empty:
+            if not drop_df.empty:
+                if isinstance(drop_df, pd.Series):
+                    drop_index = drop_df.name
+                else:
+                    drop_index = drop_df.index
                 data_df = data_df.drop(drop_index)
         return data_df
 
