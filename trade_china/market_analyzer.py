@@ -142,6 +142,14 @@ class MarketAnalyzer:
         idx_sm = idx_sm.transform(lambda x: x+timedelta(days=2) if x.weekday()==5 else x)  # Merge Friday night market to Monday        
         data_df.index = pd.DatetimeIndex(idx_sm)
 
+    @staticmethod
+    def synth_mid_price(df: pd.DataFrame, tick_size, threshold=10):
+        n_dec = get_number_of_decimal(tick_size)
+        df[MID_PRICE] = df[[BID_PRICE, ASK_PRICE]].mean(axis=1)
+        outlier_index = (
+            df[[BID_PRICE, ASK_PRICE]].subtract(df[CLOSE_PRICE], axis=0).abs() > threshold * tick_size).any(axis=1)
+        df.loc[outlier_index, MID_PRICE] = df.loc[outlier_index, CLOSE_PRICE]
+
     def update_specs(self):
         self._logger.info("market_analyzer.update_specs ...")
         (self._specs_df, self._symbol_to_id, self._ticker_to_symbol, self._ticker_to_id, self._id_to_ticker,
@@ -218,10 +226,15 @@ class MarketAnalyzer:
         pair_delta = [pair_ctrl[LEG_i_TICKER_DELTA.format(i=i)] for i in range(1, self.max_leg+1)]
         pair_N = [pair_ctrl[LEG_i_N.format(i=i)] for i in range(1, self.max_leg+1)]
 
+        # Synthesize and filter mid price
+        for s in pair_symbols:
+            tick_size = self._specs_df.loc[self._symbol_to_id[s], TICK_SIZE]
+            MarketAnalyzer.synth_mid_price(symbol_dfs_m[s], tick_size, threshold=15)
+
         # Select pair 1m data
         leg_high_m = [symbol_dfs_m[s][HIGH_PRICE] for s in pair_symbols]
         leg_low_m = [symbol_dfs_m[s][LOW_PRICE] for s in pair_symbols]
-        leg_mid_m = [symbol_dfs_m[s][[BID_PRICE, ASK_PRICE]].mean(axis=1) for s in pair_symbols]
+        leg_mid_m = [symbol_dfs_m[s][MID_PRICE] for s in pair_symbols]
 
         # Compute 1m pair close value
         leg_val_m = [leg_mid_m[leg] * pair_delta[leg] * pair_N[leg] for leg in range(self.max_leg)]
@@ -386,11 +399,13 @@ class MarketAnalyzer:
         symbol_ctrl = self.ctrl_df.loc[symbol]
         symbol_delta = symbol_ctrl[TICKER_DELTA]
         max_margin_ratio = symbol_ctrl[[MARGIN_RATIO_LONG, MARGIN_RATIO_SHORT]].max()
+        tick_size = self._specs_df.loc[self._symbol_to_id[symbol], TICK_SIZE]
+        MarketAnalyzer.synth_mid_price(symbol_dfs_m[symbol], tick_size, threshold=15)
 
         # Select 1m data
         symbol_high_m = symbol_dfs_m[symbol][HIGH_PRICE]
         symbol_low_m = symbol_dfs_m[symbol][LOW_PRICE]
-        symbol_mid_m = symbol_dfs_m[symbol][[BID_PRICE, ASK_PRICE]].mean(axis=1)
+        symbol_mid_m = symbol_dfs_m[symbol][MID_PRICE]
 
         # Compute 1m close value
         symbol_val_m = symbol_mid_m * symbol_delta
