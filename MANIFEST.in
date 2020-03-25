@@ -1,1 +1,1 @@
-include trade_china/avro_schemas/*.avro
+include trader_dash/avro_schemas/*.avro
