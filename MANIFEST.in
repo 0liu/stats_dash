@@ -1,1 +1,1 @@
-include trader_dash/avro_schemas/*.avro
+include stats_dash/avro_schemas/*.avro
